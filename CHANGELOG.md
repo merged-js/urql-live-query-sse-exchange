@@ -1,0 +1,6 @@
+# 1.0.0 (2022-02-27)
+
+
+### Features
+
+* Initial commit ([0c44105](https://github.com/merged-js/urql-live-query-sse-exchange/commit/0c44105771e57bc87b3f08739cdb307ddc44ff44))

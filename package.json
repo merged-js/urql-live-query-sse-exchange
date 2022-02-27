@@ -1,0 +1,96 @@
+{
+  "name": "@merged/urql-live-query-sse-exchange",
+  "version": "1.0.0",
+  "description": "URQL Exchange for live queries over sse",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
+  "types": "./dist/types/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "commit": "cz",
+    "lint": "eslint --ext ts --max-warnings 0 --cache src",
+    "semantic-release": "semantic-release"
+  },
+  "private": false,
+  "exports": {
+    ".": {
+      "require": "./dist/cjs/index.js",
+      "default": "./dist/es/index.js"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "keywords": [
+    "urql",
+    "sse"
+  ],
+  "author": "Torsten Blindert",
+  "homepage": "https://github.com/merged-js/urql-live-query-sse-exchange",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/merged-js/urql-live-query-sse-exchange.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@urql/core": "^2.4.0"
+  },
+  "devDependencies": {
+    "@regrapes/eslint-config": "^1.8.0",
+    "@rollup/plugin-typescript": "^8.3.1",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@urql/core": "^2.4.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "rollup": "^2.68.0",
+    "semantic-release": "^19.0.2",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "@n1ru4l/graphql-live-query": "^0.9.0",
+    "@n1ru4l/graphql-live-query-patch-json-patch": "^0.6.1",
+    "@n1ru4l/push-pull-async-iterable-iterator": "^3.2.0"
+  },
+  "prettier": "@regrapes/eslint-config/prettier",
+  "eslintConfig": {
+    "extends": [
+      "@regrapes/eslint-config/rules/base",
+      "@regrapes/eslint-config/rules/prettier"
+    ],
+    "rules": {
+      "@typescript-eslint/no-shadow": "off",
+      "@typescript-eslint/explicit-function-return-type": "off"
+    }
+  },
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/changelog",
+        {
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      "@semantic-release/npm",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "CHANGELOG.md",
+            "package.json",
+            "package-lock.json"
+          ],
+          "message": "chore(release): 🚀 ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+        }
+      ],
+      "@semantic-release/github"
+    ]
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
