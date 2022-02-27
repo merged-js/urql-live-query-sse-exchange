@@ -48,19 +48,29 @@ const subscription = subscriptionExchange({
 const isLiveOperation = (operation: Operation) =>
   operation.query.definitions.some(definition => isLiveQueryOperationDefinitionNode(definition, operation.variables))
 
-export const sseLiveExchange: Exchange = input => {
-  const forwardSubscription = subscription(input)
+const isSubscription = (operation: Operation) =>
+  operation.query.definitions.every(
+    definition => definition.kind === 'OperationDefinition' && definition.operation === 'subscription'
+  )
 
-  return ops$ => {
-    const sharedOps$ = share(ops$)
+export const sseLiveExchange =
+  ({ subscription: includeSubscriptions = true } = {}): Exchange =>
+  input => {
+    const forwardSubscription = subscription(input)
 
-    const sseResults$ = pipe(sharedOps$, filter(isLiveOperation), forwardSubscription)
-    const forward$ = pipe(
-      sharedOps$,
-      filter(ops => !isLiveOperation(ops)),
-      input.forward
-    )
+    const filterOeration = (operation: Operation) =>
+      isLiveOperation(operation) || (includeSubscriptions && isSubscription(operation))
 
-    return merge([sseResults$, forward$])
+    return ops$ => {
+      const sharedOps$ = share(ops$)
+
+      const sseResults$ = pipe(sharedOps$, filter(filterOeration), forwardSubscription)
+      const forward$ = pipe(
+        sharedOps$,
+        filter(ops => !filterOeration(ops)),
+        input.forward
+      )
+
+      return merge([sseResults$, forward$])
+    }
   }
-}
