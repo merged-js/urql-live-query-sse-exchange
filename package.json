@@ -1,6 +1,6 @@
 {
   "name": "@merged/urql-live-query-sse-exchange",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "URQL Exchange for live queries over sse",
   "main": "./dist/cjs/index.js",
   "module": "./dist/es/index.js",

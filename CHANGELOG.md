@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/merged-js/urql-live-query-sse-exchange/compare/v1.0.0...v1.1.0) (2022-02-27)
+
+
+### Features
+
+* add subscription support ([feb4caf](https://github.com/merged-js/urql-live-query-sse-exchange/commit/feb4caf9744232fecb121838f4a1120243582fea))
+
 # 1.0.0 (2022-02-27)
 
 
